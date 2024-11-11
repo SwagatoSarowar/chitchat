@@ -1,15 +1,14 @@
-import { useState } from "react";
-import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, Zoom, toast } from "react-toastify";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
+  getAuth,
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
-import { set, getDatabase, ref } from "firebase/database";
-import placeholderProfileImg from "../../assets/placeholder-img.png";
+import { getDatabase, ref, set } from "firebase/database";
+import { useState } from "react";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, Zoom, toast } from "react-toastify";
 
 function Registration() {
   const auth = getAuth();
@@ -52,13 +51,13 @@ function Registration() {
           set(ref(db, "users/" + userCredential.user.uid), {
             username: name,
             email: email,
-            profileImg: placeholderProfileImg,
+            profileImg: "https://placehold.co/400x400?text=profileImg",
           });
         })
         .then(() => {
           updateProfile(auth.currentUser, {
             displayName: name,
-            photoURL: placeholderProfileImg,
+            photoURL: "https://placehold.co/400x400?text=profileImg",
           });
         })
         .then(() => {
